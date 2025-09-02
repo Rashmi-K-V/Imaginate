@@ -8,12 +8,15 @@ const Header = () => {
         <p>Your vision, our canvas.</p>
         <img src={assets.star_icon} />
       </div>
-      <h1 className="text-4xl  max-w-[300px] sm:text-7xl sm:max-w-[590px] mx-auto mt-10 text-center">
-        From text to <span className="text-blue-600">image</span>, in just
-        seconds
+      <h1 className="text-4xl  max-w-[300px] sm:text-7xl sm:max-w-[590px] mx-auto mt-10 text-center  leading-tight font-semibold">
+        From text to{" "}
+        <span className="bg-gradient-to-l from-rose-800 to-indigo-700 bg-clip-text text-transparent font-semibold">
+          image
+        </span>
+        , in just seconds
       </h1>
 
-      <p className="text-center max-w-xl mx-auto mt-5">
+      <p className="text-center max-w-xl mx-auto mt-5 text-gray-600">
         Write what you imagine and watch it transform into realistic, creative
         visuals instantly
       </p>
