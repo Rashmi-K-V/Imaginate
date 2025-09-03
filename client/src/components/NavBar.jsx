@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
 const NavBar = () => {
-  const { user } = useContext(AppContext);
+  const { user, setShowLogin } = useContext(AppContext);
   const navigate = useNavigate();
   return (
     <div className="flex items-center justify-between py-4">
@@ -46,7 +46,10 @@ const NavBar = () => {
             >
               Pricing
             </p>
-            <button className="bg-zinc-700 text-white px-7 py-2 sm:px-10 rounded-full hover:bg-zinc-300 transition duration-200">
+            <button
+              onClick={() => setShowLogin(true)}
+              className="bg-zinc-700 text-white px-7 py-2 sm:px-10 rounded-full hover:bg-zinc-500 transition-all duration-200"
+            >
               Login
             </button>
           </div>

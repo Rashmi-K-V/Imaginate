@@ -1,28 +1,61 @@
 import React from "react";
 import { assets } from "../assets/assets";
+import { motion } from "motion/react";
 
 const Header = () => {
   return (
-    <div className="flex flex-col justify-center items-center text-center my-20">
-      <div className="text-stone-500 inline-flex items-center bg-white gap-2 px-6 py-1 rounded-full border border-neutral-500">
+    <motion.div
+      className="flex flex-col justify-center items-center text-center my-20"
+      initial={{ opacity: 0.2, y: 100 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <motion.div
+        className="text-stone-500 inline-flex items-center bg-sky-50 gap-2 px-6 py-1 rounded-full border border-neutral-400  "
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.8 }}
+      >
         <p>Your vision, our canvas.</p>
         <img src={assets.star_icon} />
-      </div>
-      <h1 className="text-4xl  max-w-[300px] sm:text-7xl sm:max-w-[590px] mx-auto mt-10 text-center  leading-tight font-semibold">
+      </motion.div>
+
+      <motion.h1
+        className="text-4xl  max-w-[300px] sm:text-7xl sm:max-w-[590px] mx-auto mt-10 text-center  leading-tight font-semibold"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4, duration: 1 }}
+      >
         From text to{" "}
-        <span className="bg-gradient-to-l from-rose-800 to-indigo-700 bg-clip-text text-transparent font-semibold">
+        <span className="bg-gradient-to-l from-rose-600 to-indigo-700 bg-clip-text text-transparent font-semibold">
           image
         </span>
         , in just seconds
-      </h1>
+      </motion.h1>
 
-      <p className="text-center max-w-xl mx-auto mt-5 text-gray-600">
+      <motion.p
+        className="text-center max-w-xl mx-auto mt-5 text-gray-600"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.8 }}
+      >
         Write what you imagine and watch it transform into realistic, creative
         visuals instantly
-      </p>
-      <button className="sm:text-lg text-white font-bold bg-gradient-to-bl from-indigo-700 to-sky-800 w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full">
+      </motion.p>
+      <motion.button
+        className="sm:text-lg text-white font-bold bg-gradient-to-bl from-indigo-700 to-sky-800 w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full"
+        initial={{ opacity: 0 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          default: { duration: 0.5 },
+          opacity: { delay: 0.8, duration: 1 },
+        }}
+      >
         Generate Images <img src={assets.star_group} className="h-6" />
-      </button>
+      </motion.button>
 
       <div className="flex flex-wrap justify-center items-center gap-3 mt-10">
         {Array(6)
@@ -37,7 +70,7 @@ const Header = () => {
           ))}
       </div>
       <p className="text-neutral-600 mt-2">Generated Images from Imaginate</p>
-    </div>
+    </motion.div>
   );
 };
 
