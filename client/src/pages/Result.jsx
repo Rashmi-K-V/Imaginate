@@ -7,19 +7,32 @@ const Result = () => {
   const [isImageLoading, setIsImageLoading] = useState(false);
 
   const [loading, setLoading] = useState(false);
+  cosnt[(input, setInput)] = useState("");
+
+  const onSumbmitHandler = async (e) => {};
 
   return (
-    <form className="flex flex-col min-h-[90vh] items-center justify-center gap-8 mt-3">
+    <form
+      onSubmit={onSumbmitHandler}
+      className="flex flex-col min-h-[90vh] items-center justify-center gap-8 mt-3"
+    >
       <div>
         <div className="relative">
           <img src={image} className="max-w-sm rounded" />
-          <span className="absolute bottom-0 left-0 h-1 bg-blue-500 w-full transition-all duration-[10]" />
+          <span
+            className={`absolute bottom-0 left-0 h-1 bg-blue-500 ${
+              loading ? "w-full transition-all duration-[10s]" : "w-0"
+            }`}
+          />
         </div>
-        <p>Loading...</p>
+        {/* <p className={!loading ? "hidden" : ""}>Loading...</p> */}
+        {loading && <p>Loading....</p>}
       </div>
       {!isImageLoading ? (
         <div className="flex w-full max-w-xl bg-zinc-500 text-white p-0.5 rounded-full font-semibold">
           <input
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
             type="text"
             placeholder="Describe what you want to generate"
             id=""
@@ -34,7 +47,12 @@ const Result = () => {
         </div>
       ) : (
         <div className="flex gap-2 flex-wrap justify-center text-white text-sm p-0.5 mt-10 rounded-full">
-          <p className="bg-transparent border border-zinc-900 text-black px-8 py-3 rounded-full cursor-pointer">
+          <p
+            onClick={() => {
+              setIsImageLoading(false);
+            }}
+            className="bg-transparent border border-zinc-900 text-black px-8 py-3 rounded-full cursor-pointer"
+          >
             Generate Another
           </p>
           <a
