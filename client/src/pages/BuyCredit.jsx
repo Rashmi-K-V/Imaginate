@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { assets, plans } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 
 const BuyCredit = () => {
+  const { user } = useContext(AppContext);
+
   return (
     <div className="min-h-[80vh] text-center pt-14 mb-10">
       <button className="border border-gray-400 px-10 py-2 rounded-full mb-6 bg-blue-100 text-blue-600 hover:bg-blue-200 transition">
@@ -23,8 +26,8 @@ const BuyCredit = () => {
               <span className="text-3xl font-medium">${item.price}</span> /{" "}
               {item.credits} credits
             </p>
-            <button className="w-full bg-gray-600 text-white mt-8 text-md rounded-xl py-2.5 min-w-48 hover:bg-gray-600 transition">
-              Get Started
+            <button className="w-full bg-gray-600 text-white mt-8 text-md rounded-xl py-2.5 min-w-48">
+              {user ? "Purchase Now" : "Get Started"}
             </button>
           </div>
         ))}
