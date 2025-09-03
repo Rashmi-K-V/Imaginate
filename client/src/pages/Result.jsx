@@ -7,7 +7,7 @@ const Result = () => {
   const [isImageLoading, setIsImageLoading] = useState(false);
 
   const [loading, setLoading] = useState(false);
-  cosnt[(input, setInput)] = useState("");
+  const [input, setInput] = useState("");
 
   const onSumbmitHandler = async (e) => {};
 
