@@ -65,7 +65,7 @@ It provides a **seamless user experience** with authentication, credit tracking,
 - Express.js
 - MongoDB + Mongoose
 - JWT Authentication
-<!-- - Razorpay SDK   -->
+- Razorpay SDK
 
 **External API:**
 
@@ -79,7 +79,7 @@ Follow these steps to run **Imaginate** locally:
 
 ---
 
-### Prerequisite
+### Prerequisites
 
 ```bash
   npm i express cors dotenv nodemon form-data jsonwebtoken mongoose axios bcrypt razorpay
@@ -90,7 +90,7 @@ Follow these steps to run **Imaginate** locally:
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/your-username/imaginate.git
+git clone https://github.com/Rashmi-K-V/Imaginate.git
 cd imaginate
 ```
 
