@@ -79,6 +79,14 @@ Follow these steps to run **Imaginate** locally:
 
 ---
 
+### Prerequisite
+
+```bash
+  npm i express cors dotenv nodemon form-data jsonwebtoken mongoose axios bcrypt razorpay
+```
+
+---
+
 ### 1️⃣ Clone Repository
 
 ```bash
