@@ -3,6 +3,7 @@ import { assets } from "../assets/assets";
 import { useState } from "react";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { motion } from "framer-motion";
 
 const Login = () => {
   //State to manage switching between sign and sign up page
@@ -20,8 +21,14 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="absolute top-0 left-0 right-0 bottom-0 backdrop-blur-lg z-10 bg-black/30 flex justify-center items-center">
-      <form className="relative bg-white p-10 rounded-2xl text-slate-500">
+    <div className="fixed top-0 left-0 right-0 bottom-0 backdrop-blur-lg z-10 bg-black/30 flex justify-center items-center">
+      <motion.form
+        initial={{ opacity: 0.2, y: 50 }}
+        transition={{ duration: 0.3 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="relative bg-white p-10 rounded-2xl text-slate-500"
+      >
         <h1 className="text-center text-3xl text-neutral-700 font-semibold">
           {state}
         </h1>
@@ -97,7 +104,7 @@ const Login = () => {
           className="absolute top-5 right-5 cursor-pointer"
           alt=""
         />
-      </form>
+      </motion.form>
     </div>
   );
 };
