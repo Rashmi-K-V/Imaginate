@@ -91,7 +91,7 @@ Follow these steps to run **Imaginate** locally:
 
 ```bash
 git clone https://github.com/Rashmi-K-V/Imaginate.git
-cd imaginate
+cd Imaginate
 ```
 
 ---
