@@ -9,7 +9,7 @@ userRouter.post('/register',registerUser);
 
 userRouter.post('/login',loginUser);
 
-userRouter.post('/credits',userAuth,userCredits); //protected route, only logged in user can access
+userRouter.get('/credits',userAuth,userCredits); //protected route, only logged in user can access
 
 
 export default userRouter;

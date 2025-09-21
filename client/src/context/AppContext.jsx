@@ -1,4 +1,6 @@
-import { createContext, useState } from "react";
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const AppContext = createContext();
 
@@ -17,6 +19,37 @@ const AppContextProvider = (props) => {
   //variable to store backend url
   const backendURL = import.meta.env.VITE_BACKEND_URL;
 
+  //To get credits dynamically using api
+  const loadCreditsData = async () => {
+    try {
+      //credits api
+      const { data } = await axios.get(backendURL + "/api/user/credits", {
+        headers: { token },
+      });
+
+      //check response
+      if (data.success) {
+        setCredit(data.credit);
+        setUser(data.user);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error);
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    setUser(null);
+  };
+
+  useEffect(() => {
+    if (token) {
+      loadCreditsData();
+    }
+  }, [token]);
+
   //pass variable and function in value
   const value = {
     user,
@@ -28,6 +61,8 @@ const AppContextProvider = (props) => {
     token,
     credit,
     setCredit,
+    logout,
+    loadCreditsData,
   };
 
   return (
