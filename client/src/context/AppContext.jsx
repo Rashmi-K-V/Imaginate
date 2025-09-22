@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export const AppContext = createContext();
@@ -8,6 +9,8 @@ export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
   const [user, setUser] = useState(null); // null means logged out
+
+  const navigate = useNavigate();
 
   const [showLogin, setShowLogin] = useState(false);
 
@@ -38,6 +41,36 @@ const AppContextProvider = (props) => {
     }
   };
 
+  const generateImage = async (prompt) => {
+    //api call for generation
+
+    try {
+      //image generate api call
+
+      const { data } = await axios.post(
+        backendURL + "/api/image/generate-image",
+        { prompt },
+        {
+          headers: { token },
+        }
+      );
+
+      if (data.success) {
+        loadCreditsData(); //display new credit after usage
+        return data.resultImage;
+      } else {
+        toast.error(data.message);
+        loadCreditsData();
+        if (data.creditBalance === 0) {
+          //redirect user to buy credits page
+          navigate("/buy");
+        }
+      }
+    } catch (erorr) {
+      toast.error(erorr.message);
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem("token");
     setToken("");
@@ -63,6 +96,7 @@ const AppContextProvider = (props) => {
     setCredit,
     logout,
     loadCreditsData,
+    generateImage,
   };
 
   return (

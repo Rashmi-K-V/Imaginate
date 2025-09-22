@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      if (state == "login") {
+      if (state === "Login") {
         const { data } = await axios.post(backendURL + "/api/user/login", {
           email,
           password,
@@ -37,7 +37,7 @@ const Login = () => {
           setToken(data.token);
           setUser(data.user);
           //store token in browser local storage
-          localStorage.getItem("token", data.token);
+          localStorage.setItem("token", data.token);
           setShowLogin(false); //to hide login form
         } else {
           //error message shown as toast using react-toastify
@@ -58,7 +58,7 @@ const Login = () => {
           setToken(data.token);
           setUser(data.user);
           //store token in browser local storage
-          localStorage.getItem("token", data.token);
+          localStorage.setItem("token", data.token);
           setShowLogin(false); //to hide login form
         } else {
           //error message shown as toast using react-toastify

@@ -39,7 +39,8 @@ export const generateImage = async( req , res ) =>{
     const base64Image = Buffer.from(data,'binary').toString('base64')
 
     //image url generated
-    const resultImage = `data:image/png:base64,${base64Image}`
+    const resultImage = `data:image/png;base64,${base64Image}`;
+
 
     //deducting user credit
     await userModel.findByIdAndUpdate(user._id,{creditBalance:user.creditBalance - 1})

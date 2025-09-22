@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { motion } from "framer-motion";
+import { AppContext } from "../context/AppContext";
 
 const Result = () => {
   const [image, setImage] = useState(assets.sample_img_1);
@@ -9,8 +10,23 @@ const Result = () => {
 
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
+  const { generateImage } = useContext(AppContext);
 
-  const onSumbmitHandler = async (e) => {};
+  //executed when prompt is sent
+  const onSumbmitHandler = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    //prompt available
+    if (input) {
+      const image = await generateImage(input);
+      if (image) {
+        setIsImageLoading(true);
+        setImage(image);
+      }
+    }
+    setLoading(false); //disable loading
+  };
 
   return (
     <motion.form
