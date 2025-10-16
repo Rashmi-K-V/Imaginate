@@ -3,6 +3,9 @@
 import userModel from "../models/userModel.js";
 import bcrypt from "bcrypt"; //encrypt password
 import jwt from "jsonwebtoken"; //generate token for user authentication
+//Import razorpay
+import razorpay from "razorpay";
+
 
 const registerUser = async (req,res)=>{
   try{
@@ -84,6 +87,60 @@ const userCredits = async(req,res)=>{
   }
 }
 
+const razorpayInstance = new razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
+});
+
+//controller fn for razorpay payment
+
+const paymentRazorpay = async(req,res)=>{
+  try{
+
+    //userid and planId of user
+    const {userId,planId} = req.body;
+    //find user by id
+    const userData = await userModel.findById(userId);
+
+    if(!user || !planId){
+      return res.json({success:false,message:"Missing required fields"});
+    }
+    
+    let credits,paln,amount,date 
+    switch(planId){
+      case 'Basic': 
+        plan = "Basic"
+        credits = 100
+        amount = 10
+        break;
+      case 'Advanced': 
+        plan = "Advanced"
+        credits = 500
+        amount = 50
+        break;
+      case 'Business': 
+        plan = "Business"
+        credits = 5000
+        amount = 250
+        break;
+      default:
+        return res.json({success:false,message:"Invalid planId"});
+        
+    } 
+
+    date = Date.now();
+    //object to store all transaction data and store in mongoDB
+    
+    const transactionData = {
+      userId,plan,amount,credits,date
+    }
+
+  }catch(error){
+    console.log(error);
+    res.json({success:false,message:error.message});
+
+  }
+}
 
 
 export  {registerUser,loginUser,userCredits};
