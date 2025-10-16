@@ -5,6 +5,7 @@ import bcrypt from "bcrypt"; //encrypt password
 import jwt from "jsonwebtoken"; //generate token for user authentication
 //Import razorpay
 import razorpay from "razorpay";
+import transactionModel from "../models/transactionModel.js";
 
 
 const registerUser = async (req,res)=>{
@@ -135,6 +136,24 @@ const paymentRazorpay = async(req,res)=>{
       userId,plan,amount,credits,date
     }
 
+    const newTransaction = await new transactionModel.create(transactionData);
+
+    const options = {
+      //order amt
+      amount : amount*100, //in paise size razorpay works in paise
+      currency : process.env.CURRENCY,
+      receipt : newTransaction._id, //unique id for each transaction
+    }
+
+    //order details
+    await razorpayInstance.orders.create(SchemaTypeOptions,(error,order)=>{
+      if(error){
+        console.log(error);
+        return res.json({success:false,message:"Something went wrong"});
+      }
+      res.json({success:true,message:"Order created successfully",order})
+    })
+
   }catch(error){
     console.log(error);
     res.json({success:false,message:error.message});
@@ -143,4 +162,4 @@ const paymentRazorpay = async(req,res)=>{
 }
 
 
-export  {registerUser,loginUser,userCredits};
+export  {registerUser,loginUser,userCredits,paymentRazorpay};
