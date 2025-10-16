@@ -2,9 +2,56 @@ import React, { useContext } from "react";
 import { assets, plans } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const BuyCredit = () => {
-  const { user } = useContext(AppContext);
+  const { user, backendURL, loadCreditsData, token, setShowLogin } =
+    useContext(AppContext);
+
+  const navigate = useNavigate();
+
+  const initPay = async (order) => {
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
+      amount: order.amount, //  Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: order.currency,
+      name: "Credits Payment",
+      description: "Credits Purchase",
+      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      receipt: order.receipt,
+      handler: async (response) => {
+        console.log(response);
+      },
+    };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+  //function to display razorpay payment gateway
+  const paymentRazorpay = async (planId) => {
+    try {
+      if (!user) {
+        setShowLogin(true);
+      }
+
+      //api call for payment endpoint
+      const { data } = await axios.post(
+        backendURL + "/api/user/pay-razor",
+        { planId },
+        {
+          headers: { token },
+        }
+      );
+      if (data.success) {
+        //initialize razorpay payment gateway
+        initPay(data.order);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <motion.div
@@ -33,7 +80,10 @@ const BuyCredit = () => {
               <span className="text-3xl font-medium">${item.price}</span> /{" "}
               {item.credits} credits
             </p>
-            <button className="w-full bg-gray-600 text-white mt-8 text-md rounded-xl py-2.5 min-w-48">
+            <button
+              onClick={() => paymentRazorpay(item.id)}
+              className="w-full bg-gray-600 text-white mt-8 text-md rounded-xl py-2.5 min-w-48 hover:bg-gray-700 transition"
+            >
               {user ? "Purchase Now" : "Get Started"}
             </button>
           </div>

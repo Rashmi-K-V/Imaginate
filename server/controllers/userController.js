@@ -103,7 +103,7 @@ const paymentRazorpay = async(req,res)=>{
     //find user by id
     const userData = await userModel.findById(userId);
 
-    if(!user || !planId){
+    if(!userId || !planId){
       return res.json({success:false,message:"Missing required fields"});
     }
     
@@ -146,7 +146,7 @@ const paymentRazorpay = async(req,res)=>{
     }
 
     //order details
-    await razorpayInstance.orders.create(SchemaTypeOptions,(error,order)=>{
+    await razorpayInstance.orders.create(options,(error,order)=>{
       if(error){
         console.log(error);
         return res.json({success:false,message:"Something went wrong"});
