@@ -51,26 +51,11 @@ It provides a **seamless user experience** with authentication, credit tracking,
 
 ## 🛠️ Tech Stack
 
-**Frontend:**
-
-- React.js
-- Tailwind CSS
-- React Router
-- Framer Motion
-- Axios
-
-**Backend:**
-
-- Node.js
-- Express.js
-- MongoDB + Mongoose
-- JWT Authentication
-- Razorpay / Cashfree SDK
-- Bcrypt for password hashing
-
-**External API:**
-
-- ClipDrop API (Text-to-Image Generation)
+| Layer        | Technologies / Tools                                                                        |
+| ------------ | ------------------------------------------------------------------------------------------- |
+| Frontend     | React.js, Tailwind CSS, React Router, Framer Motion, Axios                                  |
+| Backend      | Node.js, Express.js, MongoDB, Mongoose, JWT Authentication, Bcrypt, Razorpay / Cashfree SDK |
+| External API | ClipDrop API (Text-to-Image Generation)                                                     |
 
 ---
 
