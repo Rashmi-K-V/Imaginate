@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
 
 const transactionSchema  = new mongoose.Schema({
-  userId:{type: String ,required:true},
-  plan:{type: String ,required:true},
+  userId:{
+    type: String ,required:true
+  },
+  plan:{
+    type: String ,required:true
+  },
   amount:{type: Number ,required:true},
   credits:{type: Number ,required:true},
   payment : {type: Boolean ,default:false},
@@ -14,4 +18,4 @@ const transactionSchema  = new mongoose.Schema({
 // ✅ Correct way to prevent model overwrite errors
 const transactionModel = mongoose.models.transaction || mongoose.model("transaction", transactionSchema);
 
-export default transactionSchema;
+export default transactionModel;

@@ -29,9 +29,11 @@ const BuyCredit = () => {
     rzp.open();
   };
 
-  //function to display razorpay payment gateway
+  // function to display razorpay payment gateway
   const paymentRazorpay = async (planId) => {
     try {
+      console.log("USER:", user);
+
       if (!user) {
         setShowLogin(true);
       }
@@ -39,16 +41,22 @@ const BuyCredit = () => {
       //api call for payment endpoint
       const { data } = await axios.post(
         backendURL + "/api/user/pay-razor",
-        { planId },
+        {
+          planId: planId,
+          userId: user._id,
+        },
         {
           headers: { token },
         }
       );
+      console.log(data);
+      console.log("DATA:", planId);
       if (data.success) {
         //initialize razorpay payment gateway
         initPay(data.order);
       }
     } catch (error) {
+      console.log("Razorpay Error:", error);
       toast.error(error.message);
     }
   };

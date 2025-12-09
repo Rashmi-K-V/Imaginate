@@ -65,7 +65,7 @@ It provides a **seamless user experience** with authentication, credit tracking,
 - Express.js
 - MongoDB + Mongoose
 - JWT Authentication
-- Razorpay SDK
+- cashfree-sdk
 
 **External API:**
 
