@@ -22,7 +22,23 @@ const BuyCredit = () => {
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       receipt: order.receipt,
       handler: async (response) => {
-        console.log(response);
+        try {
+          const { data } = await axios.post(
+            backendURL + "/api/user/verify-razor",
+            response,
+            {
+              headers: { token },
+            }
+          );
+          if (data.success) {
+            //payment is verified successfully
+            loadCreditsData(); //reload user credits data
+            navigate("/");
+            toast.success("Credits Added Successfully");
+          }
+        } catch (error) {
+          toast.error(error.message);
+        }
       },
     };
     const rzp = new window.Razorpay(options);

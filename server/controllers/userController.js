@@ -212,7 +212,8 @@ const verifyRazorpay = async(req,res)=>{
       //update user credit balance
       const userData = await userModel.findById(transactionData.userId);
       const creditBalance = userData.creditBalance + transactionData.credits; //like current balance + new credits[based on plans]
-       await userModel.findByIdAndUpdate(userData.userId,{creditBalance});
+       
+      await userModel.findByIdAndUpdate(userData._id, { creditBalance });
 
        await transactionModel.findByIdAndUpdate(transactionData._id,{payment:true});//update payment status to true
 
