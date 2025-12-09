@@ -1,8 +1,6 @@
-# 📸 Imaginate – AI Text to Image Generator
+# 📸 Imaginate – AI Text to Image Generator SaaS
 
-Imaginate is a **full-stack MERN SaaS application** that allows users to **generate AI-powered images from text prompts**, manage **credits**
-
- <!-- and purchase additional plans using **Razorpay**.   -->
+**Imaginate** is a **full-stack MERN SaaS application** that allows users to **generate AI-powered images from text prompts**, manage **credits**, and purchase additional plans using a payment gateway.
 
 It provides a **seamless user experience** with authentication, credit tracking, and responsive UI animations.
 
@@ -11,41 +9,43 @@ It provides a **seamless user experience** with authentication, credit tracking,
 ## ✨ Features
 
 - 🔑 **User Authentication**
-
-  - Register and login with JWT authentication
-  - Secure password hashing
-  - Persistent sessions with local storage
-
+  - Register and login with **JWT authentication**
+  - Secure password hashing with **bcrypt**
+  - Persistent sessions stored in **local storage**
 - 🎨 **AI Text-to-Image Generation**
 
-  - Generate high-quality AI images from text prompts using external APIs (ClipDrop)
-  - Download generated images
-  - Responsive design with image previews
+  - Generate **high-quality AI images** from text prompts using **ClipDrop API**
+  - Preview and download generated images
 
 - 💳 **Credit Management System**
 
-  - Each user gets a credit balance
-  - Generating an image deducts credits
-  - Credits displayed in real-time
+  - Each user has a **credit balance**
+  - Image generation consumes credits
+  - Real-time credit tracking in UI
 
 - 💰 **Subscription & Payments**
-  <!-- - Razorpay integration for secure payments   -->
 
-  - Purchase plans to add more credits
-  - Transaction data stored in MongoDB
+  - Purchase plans to **add credits** to account
+  - Payment integration using **Razorpay** or **Cashfree**
+  - All transactions stored in **MongoDB**
 
 - 🌐 **Modern Frontend**
 
-  - Built with React + Tailwind CSS
-  - Routing with React Router
-  - Context API for global state management
-  - Animations using Framer Motion
-  <!-- - Responsive Navbar, Footer, and UI components   -->
+  - Built with **React.js + Tailwind CSS**
+  - Routing with **React Router**
+  - Global state management via **Context API**
+  - Smooth animations with **Framer Motion**
+  - Responsive Navbar, Footer, and UI components
 
 - 🔒 **Backend API**
-  - Express + MongoDB for handling authentication, credits, and payments
-  - Middleware for JWT verification
-  - RESTful APIs for image generation, user management, and credits
+  - **Node.js + Express.js** for RESTful APIs
+  - **MongoDB + Mongoose** for database operations
+  - JWT-based authentication middleware
+  - Endpoints for:
+    - User registration, login, logout
+    - Credit retrieval
+    - Image generation
+    - Payments & transaction verification
 
 ---
 
@@ -65,42 +65,66 @@ It provides a **seamless user experience** with authentication, credit tracking,
 - Express.js
 - MongoDB + Mongoose
 - JWT Authentication
-- cashfree-sdk
+- Razorpay / Cashfree SDK
+- Bcrypt for password hashing
 
 **External API:**
 
-- ClipDrop API (Text-to-Image)
-
----
-
-## ⚙️ Installation & Setup
-
-Follow these steps to run **Imaginate** locally:
+- ClipDrop API (Text-to-Image Generation)
 
 ---
 
 ### Prerequisites
 
-```bash
-  npm i express cors dotenv nodemon form-data jsonwebtoken mongoose axios bcrypt razorpay
-```
+Make sure you have **Node.js** and **MongoDB** installed.
 
----
+## ⚙️ Installation & Setup
 
-### 1️⃣ Clone Repository
+### 1.Clone Repository
 
 ```bash
 git clone https://github.com/Rashmi-K-V/Imaginate.git
 cd Imaginate
 ```
 
----
-
-### 2️⃣ Setup Backend
-
-Navigate to the backend folder and install dependencies:
+### 2.Setup Backend
 
 ```bash
-cd backend
+cd server
 npm install
 ```
+
+**Create a .env file in the backend folder with the following variables:**
+
+```bash
+PORT=4000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+RAZORPAY_KEY_ID=your_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+CURRENCY=INR
+CLIPDROP_API_KEY=your_clipdrop_api_key
+```
+
+### 3. Run the backend server:
+
+```bash
+npm run server
+```
+
+### 4. Setup Client Side
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+**Create .env file for frontend with following variables**
+
+```bash
+VITE_BACKEND_URL = Your_backend_url_
+VITE_RAZORPAY_KEY_ID = Your_test_Api_key
+```
+
+To Test payment use Razorpay test card or Razorpay text UPI Id
